@@ -1,0 +1,32 @@
+#==================================================================
+# Mapa Service
+#
+# @input objeto do tipo reactive com os inputs do usuario
+# @output objeto do tipo reactive com os outputs do usuario
+# @session dados relacionacdos a sessao
+# @conexao conexao com banco de dados
+#==================================================================
+mapaServer = function(input, output, session, conexao) {
+  
+  dadosMapa = reactive({
+    dados = mapa.provider.dadosMapa(input$estadoInput)
+    return(dados)
+  })
+  
+  output$mapaEstacoes = renderLeaflet({
+    if (input$estadoInput != "") {
+      mapaChart(dadosMapa())
+    }
+  })
+  
+  #Evento click mapa
+  observe({
+    if (!is.null(input$mapaEstacoes_marker_click$id)) {
+      updateSelectInput(
+        session = session,
+        inputId = "cidadeInput",
+        selected = input$mapaEstacoes_marker_click$id
+      )
+    }
+  })
+}

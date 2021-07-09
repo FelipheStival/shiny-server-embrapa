@@ -1,0 +1,50 @@
+
+
+
+ui = dashboardPage(
+   #========================header=========================
+   
+   dashboardHeader(title =  APP_NAME),
+   
+   #=======================================================
+   
+   
+   #=======================SiderBar========================
+   
+   dashboardSidebar(
+      width = 260,
+      sidebarMenu(
+         itemMenuMapa(),
+         itemMenuAnalise(),
+         itemMenuTabela(),
+         itemMenuGraficos(),
+         itemFiltroUI()
+      )
+   ),
+   
+   #========================================================
+   
+   
+   #=======================body=============================
+   
+   dashboardBody(
+      tabItems(
+         analiseUI(),
+         dadosperdidosUI(),
+         createMapaUI(),
+         createMapaMatrizUI(),
+         createPrecipitacaoUI(),
+         createPrecipitacaoCumulativaUI(),
+         createPeriodoChuvosoUI(),
+         createTabelaUI(),
+         createGraficoBasicoUI(),
+         createDiaSecoUmidoUI(),
+         createPrecipitacaoAnomaliaUI(),
+         createAnomaliaTemperaturaUI()
+      )
+   )
+   
+   #========================================================
+)
+
+ui = secure_app(ui,enable_admin = TRUE)

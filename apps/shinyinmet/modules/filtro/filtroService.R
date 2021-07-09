@@ -1,0 +1,54 @@
+#==================================================================
+# filtro Service
+#
+# @input objeto do tipo reactive com os inputs do usuario
+# @output objeto do tipo reactive com os outputs do usuario
+# @session dados relacionacdos a sessao
+# @conexao conexao com banco de dados
+#==================================================================
+filtroServer = function(input, output, session) {
+  
+  #Atualizando estados
+  observe({
+      estados = filtro.provider.obterEstados(conexao)
+      updateSelectInput(
+        session = session,
+        inputId = "estadoInput",
+        choices = estados$name,
+        selected = estados$name[1]
+      ) 
+  })
+  
+  # Atualizando cidades
+  observe({
+    if (!is.null(input$estadoInput)) {
+      if(input$estadoInput != ''){
+        cidades = filtro.provider.obterCidades(input$estadoInput, conexao)
+        updateSelectInput(
+          session = session,
+          inputId = "cidadeInput",
+          choices = cidades$municipio,
+          selected = cidades$municipio[1]
+        )
+      }
+    }
+  })
+  
+  #Atualizando periodo
+  observe({
+    if (!is.null(input$cidadeInput)) {
+      if(input$cidadeInput != ''){
+        periodo = filtro.provider.obterPeriodo(input$cidadeInput, conexao)
+        if (!is.na(periodo$comeco) & !is.na(periodo$fim)) {
+          updateDateRangeInput(
+            session = session,
+            inputId = "periodoInput",
+            start = periodo$comeco,
+            end = periodo$fim
+          )
+        } 
+      }
+    }
+  })
+  
+}

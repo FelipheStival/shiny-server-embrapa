@@ -1,0 +1,18 @@
+{
+    "contents" : "grafico.seas.basic = function(variavel, slice = 10, intervalo, tabela){\n     \n     tabela = prepare.table(tabela,slice)\n     \n     year.max = year(max(tabela$date))\n     year.min = year(min(tabela$date))\n     id = unique(tabela$id_estacao)\n     \n     titulo = sprintf(\"Estacao '%s'\\n %s - %s\", id, year.min, year.max)\n     var = get.variaveis.reverse(variavel)\n     \n     color = ifelse(variavel == \"precipitacao\", \"azure\", \"tomato\")\n     seas.var.plot(tabela, var = variavel, start=1, rep=6, col=color,\n                   ylog = TRUE, width = intervalo, main = titulo, ylab = var)\n}\n\ngrafico.seas.heatmap = function(variavel, slice = 10, intervalo, tabela){\n     \n     tabela = prepare.table(tabela,slice)\n     \n     cor = switch (variavel,\n                   \"t_max\" = \"red\",\n                   \"t_min\" = \"blue\",\n                   \"precipitacao\" = \"blue\",\n                   \"radiacao\" = \"orange\",\n                   \"gdd10\" = \"red\"\n     )\n     \n     year.max = year(max(tabela$date))\n     year.min = year(min(tabela$date))\n     id = unique(tabela$id_estacao)\n     \n     titulo = sprintf(\"Estacao '%s'\\n %s - %s\", id, year.min, year.max)\n     var = get.variaveis.reverse(variavel)\n     \n     s.s = seas.sum(tabela, var = variavel, width = intervalo)\n     paleta = colorRampPalette(c(\"white\", cor))(64)\n     image(s.s, variavel, palette = paleta, start=1, rep=6, main = titulo)\n     \n}\n\ngrafico.seas.precip1 = function(intervalo, variavel, slice = 10, tabela){\n     \n     tabela = prepare.table(tabela,slice)\n     names(tabela)[6] = \"rain\"\n     \n     tabela$gdd10 = NULL\n     tabela$snow = 0\n     tabela$precip = tabela$snow + tabela$rain\n     \n     s.s = seas.sum(tabela, width = intervalo)     \n     s.n = precip.norm(s.s, fun = \"mean\")\n     \n     dat.dep = precip.dep(tabela, s.n)\n     \n     year.max = year(max(tabela$date))\n     year.min = year(min(tabela$date))\n     id = unique(tabela$id_estacao)\n     \n     titulo = sprintf(\"Estacao '%s'\\n %s - %s\", id, year.min, year.max)\n     var = get.variaveis.reverse(variavel)\n     \n     par(mfrow=c(1,2)) \n     plot(s.n, start=1, rep=6, main = titulo, ylab = var)\n     plot(dep ~ date, dat.dep, type=\"l\",\n          main = titulo, ylab = var )\n}\n\ngrafico.seas.precip2 = function(intervalo, slice = 10, tabela){\n     \n     tabela = prepare.table(tabela,slice)\n     names(tabela)[6] = \"rain\"\n     \n     tabela$gdd10 = NULL\n     tabela$snow = 0\n     tabela$precip = tabela$snow + tabela$rain\n     \n     year.max = year(max(tabela$date))\n     year.min = year(min(tabela$date))\n     id = unique(tabela$id_estacao)\n     \n     titulo = sprintf(\"Estacao '%s'\\n %s - %s\", id, year.min, year.max)\n     \n     d.w.table = interarrival(tabela, \"precip\")\n     plot(d.w.table, width = intervalo, start=1, rep=6, main = titulo)\n}\n\n",
+    "created" : 1484572381515.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3141229834",
+    "id" : "727FFE8C",
+    "lastKnownWriteTime" : 1484583215,
+    "path" : "C:/Users/pedro.farias/Desktop/EmbrapaScripts/ProjetosShiny/Apresentacao/src/graphicfunctions.R",
+    "project_path" : "src/graphicfunctions.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

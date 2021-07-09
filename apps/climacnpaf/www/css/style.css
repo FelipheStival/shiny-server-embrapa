@@ -1,0 +1,21 @@
+#btn-ver-grafico
+{
+  margin: 0 auto;
+}
+#container-btn-grafico
+{
+  display: flex;
+  align-items: center;
+}
+#container-image-sobre
+{
+  width: 68vh;
+  height: 30vh;
+  display: flex;
+  margin: 0 auto;
+}
+#logo-embrapa
+{
+  width: 100%;
+  height: 100%;
+}

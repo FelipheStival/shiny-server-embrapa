@@ -1,0 +1,6 @@
+# Pacotes
+require(devtools)
+require(jsonlite)
+
+# Lendo json
+packages = fromJSON("packages.json")

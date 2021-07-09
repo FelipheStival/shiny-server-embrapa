@@ -1,0 +1,18 @@
+{
+    "contents" : "bancoDados = \"agritempo\"\nusuario = \"pedro.farias\"",
+    "created" : 1484573821381.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1910454444",
+    "id" : "2632E8FB",
+    "lastKnownWriteTime" : 1484573866,
+    "path" : "C:/Users/pedro.farias/Desktop/EmbrapaScripts/ProjetosShiny/Apresentacao/global.R",
+    "project_path" : "global.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "type" : "r_source"
+}

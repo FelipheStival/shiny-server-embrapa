@@ -1,0 +1,5 @@
+DB_HOST = "192.168.144.4"
+DB_PORT = 3306
+DB_DATABASE = "grid_xavier"
+DB_USERNAME = "grid"
+DB_PASSWORD = "grid123"

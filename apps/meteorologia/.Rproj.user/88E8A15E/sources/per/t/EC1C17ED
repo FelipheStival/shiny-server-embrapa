@@ -1,0 +1,26 @@
+{
+    "id": "EC1C17ED",
+    "path": "~/Projetos/Aplicativos/Container/apps/meteorologia/src/basicfunctions.R",
+    "project_path": "src/basicfunctions.R",
+    "type": "r_source",
+    "hash": "2926796076",
+    "contents": "",
+    "dirty": false,
+    "created": 1625343271119.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "216,42",
+        "scrollLine": "200"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1625516545,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1625516545282,
+    "read_only": false,
+    "read_only_alternatives": []
+}
