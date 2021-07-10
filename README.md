@@ -15,6 +15,11 @@ Os arquivos para a criaçao do container foram dividos em quatro pastas.
 # Como instalar
 
 O primeiro passso para fazer a instalação é fazer o download do Docker, a instalação pode ser feita seguindo o tutorial do seguinte link. <br>
+
 https://docs.docker.com/engine/install/ <br>
 
-Depois de instalar o Docker, deve ser feito o clone do repositório.
+Depois de instalar o Docker, deve ser feito o clone do repositório. Escolhe um diretorio no seu computador e execute o comando: <br>
+
+```
+git clone https://github.com/FelipheStival/shiny-server-embrapa#servidor-shiny-server-embrapa
+```
