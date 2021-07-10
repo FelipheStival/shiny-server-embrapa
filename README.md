@@ -14,8 +14,9 @@ Os arquivos para a criaçao do container foram dividos em quatro pastas.
 
 # Como instalar
 
-O primeiro passso para fazer a instalação é fazer a instalação do Docker, execute o comando abaixo de acordo com a sua distribuição.
- <strong>Ubuntu: </strong>
+O primeiro passso para fazer a instalação é fazer a instalação do Docker, execute o comando abaixo de acordo com a sua distribuição. <br>
+
+ <strong>Ubuntu: </strong> <br>
  ```
  sudo apt-get update
  ```
@@ -41,7 +42,27 @@ O primeiro passso para fazer a instalação é fazer a instalação do Docker, e
  ```
  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
  ```
+ ```
+ sudo apt-get update
+ ```
+ ```
+ sudo apt-get install docker-ce docker-ce-cli containerd.io
+ ```
+ 
+ <strong>CentOS: </strong> <br>
+ ```
+ sudo yum install -y yum-utils
+ ```
+ ```
+ sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+ ```
+ ```
+ sudo yum install docker-ce docker-ce-cli containerd.io
+ ```
 
+<hr>
 Depois de instalar o Docker, deve ser feito o clone do repositório. Escolhe um diretorio no seu computador e execute o comando: <br>
 
 ```
