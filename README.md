@@ -14,12 +14,42 @@ Os arquivos para a criaçao do container foram dividos em quatro pastas.
 
 # Como instalar
 
-O primeiro passso para fazer a instalação é fazer o download do Docker, a instalação pode ser feita seguindo o tutorial do seguinte link. <br>
-
-https://docs.docker.com/engine/install/ <br>
+O primeiro passso para fazer a instalação é fazer a instalação do Docker, execute o comando abaixo de acordo com a sua distribuição.
+ <strong>Ubuntu: </strong>
+ ```
+ sudo apt-get update
+ ```
+ ```
+ sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+ ```
+ ```
+ sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+ ```
+ ```
+ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+ ```
+ ```
+ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+ ```
 
 Depois de instalar o Docker, deve ser feito o clone do repositório. Escolhe um diretorio no seu computador e execute o comando: <br>
 
 ```
 git clone https://github.com/FelipheStival/shiny-server-embrapa#servidor-shiny-server-embrapa
+```
+
+Depois que o repositório estiver clonado, deve ser feita a build da imagem. Dentro da pasta do repositório, execute o seguinte comando:
+
+```
+docker build -t shiny-server . 
 ```
