@@ -2,6 +2,22 @@
 
 Servidor Shiny-Server Embrapa arroz e Feijão.
 
+# Sumário
+
+<!--ts-->
+   * [Estrutura das pasta](#Estrutura das pastas)
+   * [Tabela de Conteudo](#tabela-de-conteudo)
+   * [Instalação](#instalacao)
+   * [Como usar](#como-usar)
+      * [Pre Requisitos](#pre-requisitos)
+      * [Local files](#local-files)
+      * [Remote files](#remote-files)
+      * [Multiple files](#multiple-files)
+      * [Combo](#combo)
+   * [Tests](#testes)
+   * [Tecnologias](#tecnologias)
+<!--te-->
+
 # Estrutura das pastas
 
 Os arquivos para a criaçao do container foram dividos em quatro pastas.
@@ -56,13 +72,13 @@ O primeiro passso para fazer a instalação é fazer a instalação do Docker, e
 Depois de instalar o Docker, deve ser feito o clone do repositório. Escolhe um diretorio no seu computador e execute o comando: <br>
 
 ```
-git clone https://github.com/FelipheStival/shiny-server-embrapa#servidor-shiny-server-embrapa
+git clone https://github.com/FelipheStival/shiny-server-embrapa
 ```
 
 Mude o diretório para a pasta base do repositório: <br>
 
 ```
-cd shiny-server/
+cd shiny-server-embrapa
 ```
 
 Depois que o repositório estiver clonado, deve ser feita a build da imagem. Dentro da pasta do repositório, execute o seguinte comando:
