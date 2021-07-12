@@ -36,7 +36,7 @@ Antes de começar, você precisa ter instalado em sua máquina as seguintes ferr
 ## Docker
 Caso você não tenha o Docker instalado, execute o comando abaixo de acordo com a sua distribuição. <br>
 
-### Ubuntu
+#### Ubuntu
  ```
  sudo apt-get update
  ```
@@ -58,35 +58,8 @@ Caso você não tenha o Docker instalado, execute o comando abaixo de acordo com
  sudo apt-get install docker-ce docker-ce-cli containerd.io
  ```
 
-
-# Como instalar:
-
-O primeiro passso para fazer a instalação é fazer a instalação do Docker, execute o comando abaixo de acordo com a sua distribuição. <br>
-
- <strong>Ubuntu: </strong> <br>
- ```
- sudo apt-get update
- ```
- ```
- sudo apt-get install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release
- ```
- ```
- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
- ```
- ```
- sudo apt-get update
- ```
- ```
- sudo apt-get install docker-ce docker-ce-cli containerd.io
- ```
- 
- <strong>CentOS: </strong> <br>
- ```
+#### CentOS:
+```
  sudo yum install -y yum-utils
  ```
  ```
@@ -97,6 +70,9 @@ O primeiro passso para fazer a instalação é fazer a instalação do Docker, e
  ```
  sudo yum install docker-ce docker-ce-cli containerd.io
  ```
+ 
+ 
+# Instalação
 
 <hr>
 Depois de instalar o Docker, deve ser feito o clone do repositório. Escolhe um diretorio no seu computador e execute o comando: <br>
