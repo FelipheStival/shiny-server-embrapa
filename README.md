@@ -29,6 +29,36 @@ Os arquivos para a criaçao do container foram dividos em quatro pastas.
 |  /drivers/ |  Drivers que são usados para fazer a conexão com o banco de dados |
 |  /scripts/ |  Scripts que serão usados na criaçao do container |
 
+# Pré-requisitos
+
+Antes de começar, você precisa ter instalado em sua máquina as seguintes ferramentas: <br>
+
+## Docker
+Caso você não tenha o Docker instalado, execute o comando abaixo de acordo com a sua distribuição. <br>
+
+### Ubuntu
+ ```
+ sudo apt-get update
+ ```
+ ```
+ sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+ ```
+ ```
+ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+ ```
+ ```
+ sudo apt-get update
+ ```
+ ```
+ sudo apt-get install docker-ce docker-ce-cli containerd.io
+ ```
+
+
 # Como instalar:
 
 O primeiro passso para fazer a instalação é fazer a instalação do Docker, execute o comando abaixo de acordo com a sua distribuição. <br>
