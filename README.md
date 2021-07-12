@@ -7,12 +7,11 @@ Servidor Shiny-Server Embrapa arroz e Feijão.
 <!--ts-->
    * [Sobre](#Sobre)
    * [Tabela de Conteudo](#Sumário)
-   * [Instalação](#instalacao)
    * [Pré-requisitos](#Pré-requisitos)
       * [Docker](#Docker)
          * [Ubuntu](#Ubuntu)
-		 * [CentOS](#CentOS:)
-   * [Tests](#testes)
+		 * [CentOS](#CentOS)
+   * [Instalação](#Instalação)
    * [Tecnologias](#tecnologias)
 <!--te-->
 
@@ -56,7 +55,7 @@ Caso você não tenha o Docker instalado, execute o comando abaixo de acordo com
  sudo apt-get install docker-ce docker-ce-cli containerd.io
  ```
 
-#### CentOS:
+#### CentOS
 ```
  sudo yum install -y yum-utils
  ```
@@ -89,4 +88,9 @@ Depois que o repositório estiver clonado, deve ser feita a build da imagem. Den
 
 ```
 docker build -t shiny-server . 
+```
+
+Execute o comando abaixo para iniciar o servidor:
+```
+docker run -p 3838:3838 -d  -v /export/shiny-log/:/var/log/shiny-server shiny-server
 ```
