@@ -5,14 +5,13 @@ Servidor Shiny-Server Embrapa arroz e Feijão.
 # Sumário
 
 <!--ts-->
-   * [Sobre](#Sobre)
-   * [Tabela de Conteudo](#Sumário)
-   * [Pré-requisitos](#Pré-requisitos)
-      * [Docker](#Docker)
-         * [Ubuntu](#Ubuntu)
-		 * [CentOS](#CentOS)
-   * [Instalação](#Instalação)
-   * [Tecnologias](#tecnologias)
+   * [1. Sumário](#Sumário)
+   * [2. Pré-requisitos](#Pré-requisitos)
+      * [2.1.  Docker](#Docker)
+         * [2.2. Ubuntu](#Ubuntu)
+		 * [2.3. CentOS](#CentOS)
+   * [3. Instalação](#Instalação)
+   * [4. Tecnologias](#tecnologias)
 <!--te-->
 
 # Estrutura das pastas
