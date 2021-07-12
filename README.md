@@ -10,10 +10,8 @@ Servidor Shiny-Server Embrapa arroz e Feijão.
    * [Instalação](#instalacao)
    * [Pré-requisitos](#Pré-requisitos)
       * [Docker](#Docker)
-      * [Local files](#local-files)
-      * [Remote files](#remote-files)
-      * [Multiple files](#multiple-files)
-      * [Combo](#combo)
+         * [Ubuntu](#Ubuntu)
+		 * [CentOS](#CentOS:)
    * [Tests](#testes)
    * [Tecnologias](#tecnologias)
 <!--te-->
