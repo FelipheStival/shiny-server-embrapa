@@ -12,7 +12,7 @@ Os arquivos para a criaçao do container foram dividos em quatro pastas.
 :file_folder: /scripts/ essa pasta contém os scripts que serão utilizados na criaçao do container. <br>
 :bookmark_tabs: Dockerfile é o arquivo onde estão os passos para que o container seja criado. <br>
 
-# Como instalar
+# Como instalar:
 
 O primeiro passso para fazer a instalação é fazer a instalação do Docker, execute o comando abaixo de acordo com a sua distribuição. <br>
 
@@ -35,9 +35,6 @@ O primeiro passso para fazer a instalação é fazer a instalação do Docker, e
     curl \
     gnupg \
     lsb-release
- ```
- ```
- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
  ```
  ```
  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
