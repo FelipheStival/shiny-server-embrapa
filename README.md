@@ -37,10 +37,10 @@ Antes de começar, você precisa ter instalado em sua máquina as seguintes ferr
 <!--te-->
 
 
-## Docker
+### 1. Docker
 Caso você não tenha o Docker instalado, execute o comando abaixo de acordo com a sua distribuição. <br>
 
-##### Ubuntu
+##### 1.1. Ubuntu
  ```
  sudo apt-get update
  ```
@@ -62,7 +62,7 @@ Caso você não tenha o Docker instalado, execute o comando abaixo de acordo com
  sudo apt-get install docker-ce docker-ce-cli containerd.io
  ```
 
-##### CentOS
+##### 1.2. CentOS
  ```
  sudo yum install -y yum-utils
  ```
@@ -75,7 +75,7 @@ Caso você não tenha o Docker instalado, execute o comando abaixo de acordo com
  sudo yum install docker-ce docker-ce-cli containerd.io
  ```
 
-#### Iniciar serviço docker
+#### 2. Iniciar serviço docker
 
 Depois que o docker estiver instalado, inicie o serviço com o seguinte comando:
 ```
@@ -84,8 +84,13 @@ Depois que o docker estiver instalado, inicie o serviço com o seguinte comando:
  
 # Instalação
 
-<hr>
-Depois de instalar o Docker, deve ser feito o clone do repositório. Escolhe um diretorio no seu computador e execute o comando: <br>
+<!--ts-->
+   * [1. Clonar repositório](#Clonar-repositório)
+   * [2. build servidor](#Criar-build-servidor)
+<!--te-->
+
+#### 1. Clonar repositório
+Escolha um diretorio no seu computador e execute o comando: <br>
 
 ```
 git clone https://github.com/FelipheStival/shiny-server-embrapa
@@ -97,6 +102,7 @@ Mude o diretório para a pasta base do repositório: <br>
 cd shiny-server-embrapa
 ```
 
+#### 2. Criar build servidor
 Dentro da pasta do repositório, deve ser feita a build da imagem. Dentro da pasta do repositório, execute o seguinte comando:
 
 ```
