@@ -98,15 +98,25 @@ Acesse o endereço http://localhost:3838, caso apareça a página de "boas-vinda
 
 # Como adicionar um aplicativo no servidor 
 
+<!--ts-->
+   * [1. Clonar repositório](#Sumário)
+   * [2. Adicionar aplicativo ao servidor](#Estrutura-das-pastas)
+   * [3. Adicionar dependências ao servidor](#Estrutura-das-pastas)
+   * [4. Criar nova build](#Estrutura-das-pastas)
+<!--te-->
+
+##### 1. Clonar repositório
 Primeiro deve ser feito o clone do repositório, Escolhe um diretorio no seu computador e execute o comando: <br>
 ```
 git clone https://github.com/FelipheStival/shiny-server-embrapa
 ```
 
-Copie o aplicativo para a basta /apps/ do repositório. <br><br>
+##### 2. Adicionar aplicativo ao servidor
+Para adicionadar um aplicativo ao servidor, copie o código fonte do aplicativo para a pasta /apps/
 
+##### 2. Adicionar dependências
 Depois de copiar o aplicativo para a pasta, adicione as bibliotecas usadas no aplicativo no arquivo /scripts/instalacao.R, as dependências devem ser adicionadas a variável "pacotes". Exemplo:
- 
+
 ```r
 pacotes = list(
   c("dplyr", "1.0.7"),
@@ -130,7 +140,7 @@ pacotes = list(
 )
 ```
 
-
+##### 3. Criar nova build
 Faça a build do container com o novo aplicativo.
 ```
 docker build -t shiny-server . 
