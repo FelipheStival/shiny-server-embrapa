@@ -29,10 +29,18 @@ Os arquivos para a criaçao do container foram dividos em quatro pastas.
 
 Antes de começar, você precisa ter instalado em sua máquina as seguintes ferramentas: <br>
 
+<!--ts-->
+   * [1. Instalar Docker](#Docker)
+      * [1.1 Ubuntu](#Ubuntu)
+	  * [1.2 CentOS](#CentOS)
+   * [2. Iniciar serviço docker](#Iniciar-serviço-docker)
+<!--te-->
+
+
 ## Docker
 Caso você não tenha o Docker instalado, execute o comando abaixo de acordo com a sua distribuição. <br>
 
-#### Ubuntu
+##### Ubuntu
  ```
  sudo apt-get update
  ```
@@ -54,8 +62,8 @@ Caso você não tenha o Docker instalado, execute o comando abaixo de acordo com
  sudo apt-get install docker-ce docker-ce-cli containerd.io
  ```
 
-#### CentOS
-```
+##### CentOS
+ ```
  sudo yum install -y yum-utils
  ```
  ```
@@ -66,7 +74,13 @@ Caso você não tenha o Docker instalado, execute o comando abaixo de acordo com
  ```
  sudo yum install docker-ce docker-ce-cli containerd.io
  ```
- 
+
+#### Iniciar serviço docker
+
+Depois que o docker estiver instalado, inicie o serviço com o seguinte comando:
+```
+ sudo systemctl start docker
+```
  
 # Instalação
 
@@ -105,13 +119,13 @@ Acesse o endereço http://localhost:3838, caso apareça a página de "boas-vinda
    * [4. Criar nova build](#Criar-nova-build)
 <!--te-->
 
-##### 1. Clonar repositório
+#### 1. Clonar repositório
 Primeiro deve ser feito o clone do repositório, Escolhe um diretorio no seu computador e execute o comando: <br>
 ```
 git clone https://github.com/FelipheStival/shiny-server-embrapa
 ```
 
-##### 2. Adicionar aplicativo ao servidor
+#### 2. Adicionar aplicativo ao servidor
 Para adicionadar um aplicativo ao servidor, copie o código fonte do aplicativo para a pasta /apps/
 
 #### 3. Adicionar dependências
@@ -141,6 +155,11 @@ pacotes = list(
 ```
 
 #### 4. Criar nova build
+
+Acesse o diretorio do repositório: 
+```
+cd shiny-server-embrapa
+```
 Faça a build do container com o novo aplicativo.
 ```
 docker build -t shiny-server . 
