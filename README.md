@@ -119,10 +119,10 @@ Acesse o endereço http://localhost:3838, caso apareça a página de "boas-vinda
 # Como adicionar um aplicativo no servidor 
 
 <!--ts-->
-   * [1. Clonar repositório](#Clonar-repositório)
-   * [2. Adicionar aplicativo ao servidor](#Adicionar-aplicativo-ao-servidor)
-   * [3. Adicionar dependências ao servidor](#Adicionar-dependências)
-   * [4. Criar nova build](#Criar-nova-build)
+   * [1. Clonar repositório](#1. Clonar-repositório)
+   * [2. Adicionar aplicativo ao servidor](#2. Adicionar-aplicativo-ao-servidor)
+   * [3. Adicionar dependências ao servidor](#3.-Adicionar-dependências)
+   * [4. Criar nova build](#4.-Criar-nova-build)
 <!--te-->
 
 #### 1. Clonar repositório
