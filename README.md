@@ -6,13 +6,13 @@ Servidor Shiny-Server Embrapa arroz e Feijão.
 
 <!--ts-->
    * [1. Sumário](#Sumário)
-   * [2. Estrutura das pastas](#Estrutura das pastas)
+   * [2. Estrutura das pastas](#Estrutura-das-pastas)
    * [3. Pré-requisitos](#Pré-requisitos)
       * [3.1.  Docker](#Docker)
          * [3.2. Ubuntu](#Ubuntu)
 		 * [3.3. CentOS](#CentOS)
    * [4. Instalação](#Instalação)
-   * [5. Tecnologias](#tecnologias)
+   * [5. Como adicionar um aplicativo no servidor ](#Como-adicionar-um-aplicativo-no-servidor )
 <!--te-->
 
 # Estrutura das pastas
@@ -126,7 +126,7 @@ pacotes = list(
   c("shinyjs", "2.0.0"),
   c("data.table", "1.14.0"),
   c("shinymanager", "1.0.400"),
-  # Adicionar pacotes apos essa linha.
+  # Adicionar pacotes após essa linha.
 )
 ```
 
