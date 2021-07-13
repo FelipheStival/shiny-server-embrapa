@@ -86,7 +86,7 @@ Depois que o docker estiver instalado, inicie o serviço com o seguinte comando:
 
 <!--ts-->
    1. [Clonar repositório](#1-Clonar-repositório)
-   2. [build servidor](#Criar-build-servidor)
+   2. [build servidor](#2-Criar-build-servidor)
 <!--te-->
 
 #### 1. Clonar repositório
