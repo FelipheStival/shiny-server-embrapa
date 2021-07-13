@@ -21,10 +21,9 @@ Os arquivos para a criaçao do container foram dividos em quatro pastas.
 
 | path  |  Descrição  |
 | ------------------- | ------------------- |
-|  /apps/ |  Aplicativos que serão colocados no servidor |
-|  /conf/ |  Pasta onde fica a configuração do Shiny-Server |
-|  /drivers/ |  Drivers que são usados para fazer a conexão com o banco de dados |
-|  /scripts/ |  Scripts que serão usados na criaçao do container |
+|  /apps/ |  Aplicativos que serão colocados no servidor. |
+|  /conf/ |  Pasta onde fica a configuração do Shiny-Server. |
+|  /scripts/ |  Scripts que serão usados na criaçao do container. |
 
 # Pré-requisitos
 
@@ -84,7 +83,7 @@ Mude o diretório para a pasta base do repositório: <br>
 cd shiny-server-embrapa
 ```
 
-Depois que o repositório estiver clonado, deve ser feita a build da imagem. Dentro da pasta do repositório, execute o seguinte comando:
+Dentro da pasta do repositório, deve ser feita a build da imagem. Dentro da pasta do repositório, execute o seguinte comando:
 
 ```
 docker build -t shiny-server . 
@@ -95,6 +94,8 @@ Execute o comando abaixo para iniciar o servidor:
 docker run -p 3838:3838 -d  -v /export/shiny-log/:/var/log/shiny-server shiny-server
 ```
 
+Acesse o endereço http://localhost:3838, caso apareça a página de "boas-vindas" do Shiny-Server o servidor está funcionando corretamente.
+
 # Como adicionar um aplicativo no servidor 
 
 Primeiro deve ser feito o clone do repositório, Escolhe um diretorio no seu computador e execute o comando: <br>
@@ -102,7 +103,7 @@ Primeiro deve ser feito o clone do repositório, Escolhe um diretorio no seu com
 git clone https://github.com/FelipheStival/shiny-server-embrapa
 ```
 
-Copie o aplicativo para a basta /apps/ do repositório.
+Copie o aplicativo para a basta /apps/ do repositório. <br><br>
 
 Depois de copiar o aplicativo para a pasta, adicione as bibliotecas usadas no aplicativo no arquivo /scripts/instalacao.R, as dependências devem ser adicionadas a variável "pacotes". Exemplo:
  
@@ -125,8 +126,7 @@ pacotes = list(
   c("ggrepel", "0.9.1"),
   c("shinyjs", "2.0.0"),
   c("data.table", "1.14.0"),
-  c("shinymanager", "1.0.400"),
-  # Adicionar pacotes após essa linha.
+  c("shinymanager", "1.0.400") # Adicionar pacotes após essa linha.
 )
 ```
 
