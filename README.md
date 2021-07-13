@@ -85,8 +85,8 @@ Depois que o docker estiver instalado, inicie o serviço com o seguinte comando:
 # Instalação
 
 <!--ts-->
-   * [1. Clonar repositório](#Clonar-repositório)
-   * [2. build servidor](#Criar-build-servidor)
+   1. [Clonar repositório](#1-Clonar-repositório)
+   2. [build servidor](#Criar-build-servidor)
 <!--te-->
 
 #### 1. Clonar repositório
@@ -120,9 +120,9 @@ Acesse o endereço http://localhost:3838, caso apareça a página de "boas-vinda
 
 <!--ts-->
    1. [Clonar repositório](#1-Clonar-repositório)
-   2. [Adicionar aplicativo ao servidor](#2. Adicionar-aplicativo-ao-servidor)
-   3. [Adicionar dependências ao servidor](#3.-Adicionar-dependências)
-   4. [Criar nova build](####-4.-Criar-nova-build)
+   2. [Adicionar aplicativo ao servidor](#2-Adicionar-aplicativo-ao-servidor)
+   3. [Adicionar dependências ao servidor](#3-Adicionar-dependências)
+   4. [Criar nova build](#4-Criar-nova-build-com-aplicativo)
 <!--te-->
 
 #### 1. Clonar repositório
@@ -131,10 +131,10 @@ Primeiro deve ser feito o clone do repositório, Escolhe um diretorio no seu com
 git clone https://github.com/FelipheStival/shiny-server-embrapa
 ```
 
-#### Adicionar aplicativo ao servidor
+#### 2. Adicionar aplicativo ao servidor
 Para adicionadar um aplicativo ao servidor, copie o código fonte do aplicativo para a pasta /apps/
 
-#### Adicionar dependências
+#### 3. Adicionar dependências
 Depois de copiar o aplicativo para a pasta, adicione as bibliotecas usadas no aplicativo no arquivo /scripts/instalacao.R, as dependências devem ser adicionadas a variável "pacotes". Exemplo:
 
 ```r
@@ -160,7 +160,7 @@ pacotes = list(
 )
 ```
 
-#### Criar nova build
+#### 4. Criar nova build com aplicativo
 
 Acesse o diretorio do repositório: 
 ```
