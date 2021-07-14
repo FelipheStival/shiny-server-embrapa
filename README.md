@@ -28,8 +28,8 @@ Antes de começar, você precisa ter instalado em sua máquina as seguintes ferr
 
 <!--ts-->
    * 1.[Instalar Docker](#1-Docker)
-      *1.1 [Ubuntu](#1-1-Ubuntu)
-	  *1.2 [CentOS](#1-2-CentOS)
+      * 1.1.[Ubuntu](#1-1-Ubuntu)
+	  * 1.2.[CentOS](#1-2-CentOS)
    * 2. [Iniciar serviço docker](#2-Iniciar-serviço-docker)
 <!--te-->
 
