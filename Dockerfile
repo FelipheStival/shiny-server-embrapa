@@ -32,16 +32,7 @@ RUN Rscript /scripts/instalacao.R
 #================================================================================================================
 
 # Copiando aplicativos
-COPY /apps/climacnpaf /srv/shiny-server/climacnpaf
-COPY /apps/infoclima /srv/shiny-server/infoclima
-COPY /apps/meteorologia /srv/shiny-server/meteorologia
-COPY /apps/shinyinmet /srv/shiny-server/shinyinmet
-
-# Copiando drivers para a pastas
-COPY /drivers/mysql-connector-java-5.1.48-bin.jar /srv/shiny-server/infoclima/driver
-COPY /drivers/mysql-connector-java-5.1.48-bin.jar /srv/shiny-server/climacnpaf/driver
-COPY /drivers/mysql-connector-java-5.1.48-bin.jar /srv/shiny-server/meteorologia/driver
-COPY /drivers/postgresql-42.2.22.jar /srv/shiny-server/shinyinmet/driver
+COPY /apps/. /srv/shiny-server/
 
 #================================================================================================================
 # Configuracao shiny-server
