@@ -27,12 +27,9 @@ Os arquivos para a criaçao do container foram dividos em quatro pastas.
 Antes de começar, você precisa ter instalado em sua máquina as seguintes ferramentas: <br>
 
 <!--ts-->
-   *1. [Instalar Docker](#1-Docker)
-        *1.1.[Ubuntu](#1-1Ubuntu)
-	    *1.2.[CentOS](#1-2CentOS)
-   *2. [Iniciar serviço docker](#2-Iniciar-serviço-docker)
+   1. [Instalar docker](#1-Docker)
+   2. [Iniciar serviço docker](#2-Iniciar-serviço-docker)
 <!--te-->
-
 
 ### 1. Docker
 Caso você não tenha o Docker instalado, execute o comando abaixo de acordo com a sua distribuição. <br>
