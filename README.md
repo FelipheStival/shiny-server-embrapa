@@ -5,11 +5,11 @@ Servidor Shiny-Server Embrapa arroz e Feijão.
 # Sumário
 
 <!--ts-->
-   * 1. [Sumário](#Sumário)
-   * 2. [Estrutura das pastas](#Estrutura-das-pastas)
-   * 3. [Pré-requisitos](#Pré-requisitos)
-   * 4. [Instalação](#Instalação)
-   * 5. [Como adicionar um aplicativo no servidor ](#Como-adicionar-um-aplicativo-no-servidor )
+   1. [Sumário](#Sumário)
+   2. [Estrutura das pastas](#Estrutura-das-pastas)
+   3. [Pré-requisitos](#Pré-requisitos)
+   4. [Instalação](#Instalação)
+   5. [Como adicionar um aplicativo no servidor ](#Como-adicionar-um-aplicativo-no-servidor )
 <!--te-->
 
 # Estrutura das pastas
