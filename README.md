@@ -5,14 +5,11 @@ Servidor Shiny-Server Embrapa arroz e Feijão.
 # Sumário
 
 <!--ts-->
-   * [1. Sumário](#Sumário)
-   * [2. Estrutura das pastas](#Estrutura-das-pastas)
-   * [3. Pré-requisitos](#Pré-requisitos)
-      * [3.1.  Docker](#Docker)
-         * [3.2. Ubuntu](#Ubuntu)
-		 * [3.3. CentOS](#CentOS)
-   * [4. Instalação](#Instalação)
-   * [5. Como adicionar um aplicativo no servidor ](#Como-adicionar-um-aplicativo-no-servidor )
+   * 1.[Sumário](#Sumário)
+   * 2.[Estrutura das pastas](#Estrutura-das-pastas)
+   * 3.[Pré-requisitos](#Pré-requisitos)
+   * 4.[Instalação](#Instalação)
+   * 5.[Como adicionar um aplicativo no servidor ](#Como-adicionar-um-aplicativo-no-servidor )
 <!--te-->
 
 # Estrutura das pastas
@@ -31,8 +28,8 @@ Antes de começar, você precisa ter instalado em sua máquina as seguintes ferr
 
 <!--ts-->
    * 1.[Instalar Docker](#1-Docker)
-      1.1 [Ubuntu](#1-1-Ubuntu)
-	  1.2 [CentOS](#1-2-CentOS)
+      *1.1 [Ubuntu](#1-1-Ubuntu)
+	  *1.2 [CentOS](#1-2-CentOS)
    * 2. [Iniciar serviço docker](#2-Iniciar-serviço-docker)
 <!--te-->
 
