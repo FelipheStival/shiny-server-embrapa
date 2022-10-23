@@ -24,10 +24,8 @@ server = shinyServer(function(input, output, session) {
           
           municipio = input$municipioSelect
           estado = providerMetadata.getEstadoNorm(tabelaCoordenadas(), municipio)     
-
-          t = serviceMunicipioData(estado, municipio, input$intervalo, global)
-          t = providerOggr(t, input$oggrTemp)
           
+          t = serviceMunicipioData(estado, municipio, input$intervalo, global)
           return(t)
      })
      #==============================================#
@@ -70,8 +68,8 @@ server = shinyServer(function(input, output, session) {
           switch (input$sidebar,
                   "mapa" = NULL,
                   "tabela" = NULL,
-                  "grafico-basico" = fluidRow.create(),
-                  "heatmap" = fluidRow.create(),
+                  "grafico-basico" = fluidRow.create(disableVariable = FALSE, disableSlice = FALSE, nameInputOgg = 'basicoOgg'),
+                  "heatmap" = fluidRow.create(disableVariable = FALSE, disableSlice = FALSE, nameInputOgg = 'heatMapOgg'),
                   "prec-geral" = fluidRow.create(disableVariable = TRUE, disableSlice = TRUE),
                   "prec-acumulativa" = NULL, 
                   "wet-dry" = fluidRow.create(disableVariable = TRUE, disableSlice = TRUE),
@@ -98,7 +96,10 @@ server = shinyServer(function(input, output, session) {
           
           lista = providerInputVariables(variavel, periodo)
           
-          graphicsSeasVar(tabelaDados(), nomeMunicipio, lista$variavel,
+          dadosPlot = tabelaDados()
+          dadosPlot = providerOggr(dadosPlot, input$basicoOgg)
+          
+          graphicsSeasVar( dadosPlot, nomeMunicipio, lista$variavel,
                           ylab = variavel, intervalo = lista$intervalo, color = lista$cor)
      })
      #==============================================#
@@ -113,7 +114,10 @@ server = shinyServer(function(input, output, session) {
           
           lista = providerInputVariables(variavel, periodo)
           
-          graphicsSeasHeatmap(tabelaDados(), nomeMunicipio, lista$variavel, 
+          dadosPlot = tabelaDados()
+          dadosPlot = providerOggr(dadosPlot, input$heatMapOgg)
+          
+          graphicsSeasHeatmap(dadosPlot, nomeMunicipio, lista$variavel, 
                               intervalo = lista$intervalo, color = lista$cor)
      })
      #==============================================#

@@ -354,18 +354,20 @@ grafico.anomalia.temperatura = function(dados,Municipio,ano){
   dados <- mutate(dados, mo = month(date, label = TRUE), yr = year(date)) %>% 
     filter(date >= min(dados$date)) %>% 
     group_by(yr, mo) %>% 
-    summarise(prs = sum( pr, na.rm = TRUE))
+    dplyr::summarise(prs = sum( pr, na.rm = TRUE))
   
   pr_ref <- filter(dados, yr > min(dados$yr), yr <= max(dados$yr)) %>% 
     group_by(mo) %>% 
-    summarise(pr_ref = mean(prs))
+    dplyr::summarise(pr_ref = mean(prs))
   
   dados <- left_join(dados, pr_ref, by = "mo")
   
   dados <- mutate(dados, anom = (prs*100/pr_ref)-100,  date = str_c(yr, as.numeric(mo), 1, sep = "-") %>% 
                     ymd(),sign= ifelse(anom > 0, "pos", "neg"))
   
-  Meses = c('Set','Out','Nov','Dez','Jan','Fev','Mar','Mai')
+  dados$mo <- str_to_lower(dados$mo)
+  
+  Meses = c('set','out','nov','dez','jan','fev','mar','mai')
   
   dados = dados %>% mutate(filtro = format(date,'%m')) %>%
     filter(mo %in% Meses)
@@ -374,24 +376,24 @@ grafico.anomalia.temperatura = function(dados,Municipio,ano){
   ano = str_split(ano,"-")[[1]]
   Filter_ano_um = dados %>%
     filter(yr == ano[1],
-             mo == "Set" |
-             mo == "Out" |
-             mo == "Nov" |
-             mo == "Dez"
+             mo == "set" |
+             mo == "out" |
+             mo == "nov" |
+             mo == "dez"
     )
   
   Filter_ano_dois = dados %>%
     filter(yr == ano[2],
-           mo == "Jan" |
-             mo == "Fev" |
-             mo == "Mar" |
-             mo == "Mai"
+           mo == "jan" |
+             mo == "fev" |
+             mo == "mar" |
+             mo == "mai"
     )
   
   Filter_rbind = rbind(Filter_ano_um,Filter_ano_dois)
   
   data_norm <-  group_by(dados, mo) %>% 
-    summarise(mx = max(anom),min = min(anom),q25 = quantile(anom, .25),q75 = quantile(anom, .75),iqr = q75-q25)
+   dplyr::summarise(mx = max(anom),min = min(anom),q25 = quantile(anom, .25),q75 = quantile(anom, .75),iqr = q75-q25)
   
   g1 = ggplot(data_norm) + geom_crossbar(aes(x = mo, y = 0, ymin = min, ymax = mx),fatten = 0, fill = "grey90", colour = "NA") +
     geom_crossbar(aes(x = mo, y = 0, ymin = q25, ymax = q75),fatten = 0, fill = "grey70") + theme_hc()

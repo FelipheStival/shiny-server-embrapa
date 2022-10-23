@@ -6,10 +6,10 @@
 # intervalo => intervalo de dias analisados
 # color => cor do grafico
 graphicsSeasVar = function(tabela, nomeEstacao, colunaVariavel, ylab, intervalo = 10, color = "tomato") {
-     
+
      if(length(tabela) == 1)
           return(NULL)
-     
+
      tabela[[colunaVariavel]] = as.numeric(tabela[[colunaVariavel]])
      tabela$data = as.Date(tabela$data)
      

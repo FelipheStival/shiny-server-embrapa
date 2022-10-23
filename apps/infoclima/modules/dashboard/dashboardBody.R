@@ -1,6 +1,6 @@
 #==============================================#
 # Cria o menu para a configuracao para as analises
-fluidRow.create = function(disableVariable = FALSE, disableInterval = FALSE, disableSlice = FALSE) {
+fluidRow.create = function(disableVariable = FALSE, disableInterval = FALSE, disableSlice = FALSE, nameInputOgg = 'oggrTemp') {
      box( width = 4,
           if(!disableVariable)
                selectInput("variableSelected", "Selecione a variavel:", 
@@ -12,7 +12,7 @@ fluidRow.create = function(disableVariable = FALSE, disableInterval = FALSE, dis
                         selected = "Mensal"),
      
           if(!disableSlice)
-               sliderInput("oggrTemp", label = "Selecione a temperatua base:", min = 0, max = 15, value = 7),
+               sliderInput(nameInputOgg, label = "Selecione a temperatua base:", min = 0, max = 15, value = 7),
 
           h3(p(textOutput("municipioSelect")))
      )

@@ -1,0 +1,47 @@
+﻿#==================================================================
+# Metodo para abrir a conexao com o banco de dados
+#
+# @return objeto connection com conexao do banco de dados
+#==================================================================
+banco.provider.openConnection = function() {
+  
+  # configurando driver
+  driver = JDBC("org.postgresql.Driver",
+                "driver//postgresql-42.2.22.jar")
+  
+  # criando conexao
+  conn = dbConnect(driver,
+                   sprintf("jdbc:postgresql://%s:%s/%s",DB_HOST,DB_PORT,DB_DATABASE),
+                   DB_USERNAME,
+                   DB_PASSWORD)
+  
+  return(conn)
+}
+
+#==================================================================
+# Metodo para executar um statement
+#
+# @return objeto connection com conexao do banco de dados
+#==================================================================
+banco.provider.executeQuery = function(statement) {
+  connection = banco.provider.openConnection()
+  result = dbGetQuery(connection, statement)
+  result = set_utf8(result)
+  dbDisconnect(connection)
+  return(result)
+}
+
+#==================================================================
+# converter caracteres para UTF-8
+#
+# @param x objeto string a ser convertido
+# @return x ojeto convetido para utf-8
+#==================================================================
+set_utf8 = function(x) {
+  # Declare UTF-8 encoding on all character columns:
+  chr <- sapply(x, is.character)
+  x[, chr] <- lapply(x[, chr, drop = FALSE], `Encoding<-`, "UTF-8")
+  # Same on column names:
+  Encoding(names(x)) <- "UTF-8"
+  x
+}

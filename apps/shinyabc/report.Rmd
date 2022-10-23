@@ -1,0 +1,108 @@
+---
+title: "Fundação ABC"
+# subtitle: "Sous-titre"
+author: "Embrapa Arroz e Feijão"
+date: "`r format(Sys.time(), '%d de %B, %Y \n %H:%M:%S ')`"
+always_allow_html: yes
+# toc: true
+---
+
+
+
+```{css, echo=FALSE}
+h1,h4{text-align:center;
+font-weight: bold;
+color: rgb(255,255,255);
+}
+
+.container-fluid.main-container {border-style: groove;}
+
+div#header{
+
+background-color: rgb(0,102,153);
+background-image: linear-gradient(to bottom right, rgb(0,102,153), rgb(0,153,102));
+
+
+
+}
+
+caption{text-align:center;
+color: black;
+font-weight: bold;
+font-size: 35px;
+}
+
+header{
+border-style: solid;
+background: rgb(204,204,204);
+}
+
+thead{text-align:center;
+background: rgb(76,175,80);
+border-style: solid;
+}
+
+```
+
+
+## Variáveis selecionadas
+***
+
+```{r, echo=FALSE}
+criarInfomacoes = function(){
+  variaveis = data.frame(
+    Variaveis = c(
+      "Cultura",
+      "Safra",
+      "Estado",
+      "Cidade",
+      "irrigacao",
+      "Fungicida",
+      "Tipo de grao",
+      "Epoca"
+    ),
+    Selecionados = c(
+      input$culturaInputDoencas,
+      input$safraInputDoencas,
+      input$estadoInputDoencas,
+      input$cidadeInputDoencas,
+      input$irrigacaoInputDoencas,
+      input$fungicidaInputDoencas,
+      input$tipodegraoInputDoencas,
+      input$epocaInputDoencas
+    ),
+    stringsAsFactors = F
+  )
+  return(variaveis)
+  
+}
+
+out = datatable(criarInfomacoes(), style = 'bootstrap')
+
+out  
+```
+
+Data
+
+```{r, echo=FALSE, warning = FALSE}
+dadosGenotipos = dadosRelatorio()
+dadosGenotipos = dadosGenotipos[order(dadosGenotipos$mean, decreasing=TRUE),]
+dadosGenotipos$mean = round(dadosGenotipos$mean,0)
+
+
+dadosGenotipos = dadosGenotipos[,c("gid", "mean")]
+colnames(dadosGenotipos) <- c("Cultivar", "Média(BLUP, kg/ha)")                                
+
+# Criando tabela
+out = datatable(dadosGenotipos, style = 'bootstrap',options = list(columnDefs = 
+                                                                     list(list(className = 'dt-center', 
+                                                                               targets = "_all")))) %>%
+  formatStyle('Média(BLUP, kg/ha)',
+              background = styleColorBar(dadosGenotipos[,"Média(BLUP, kg/ha)"], '#90EE90'),
+              backgroundSize = '95% 50%',
+              backgroundRepeat = 'no-repeat',
+              backgroundPosition = 'right')
+
+
+out
+```

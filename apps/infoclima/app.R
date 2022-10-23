@@ -28,7 +28,7 @@ app.LoadModules = function() {
                           full.names = T)
      index = which(modulos %in% "./app.R")
      modulos = modulos[-index]
-     log = sapply(modulos,source,encoding="utf-8")
+     log = sapply(modulos,source)
 }
 #==============================================#
 
