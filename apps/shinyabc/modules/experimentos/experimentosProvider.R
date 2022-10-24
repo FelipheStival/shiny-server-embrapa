@@ -80,11 +80,6 @@ experimentos.provider.dadosFiltrados = function(dados, input) {
     filtrado = filtrado[filtrado$tipo_de_grao %in% input$tipodegraoInputDoencas, ]
   }
   
-  # Filtrando epoca
-  if(length(indexEpoca) == 0 & !is.null(input$epocaInputDoencas)){
-    filtrado = filtrado[filtrado$epoca %in% input$epocaInputDoencas, ]
-  }
-  
   # Filtrando safra
   if(length(indexSafra) == 0 & !is.null(input$safraInputDoencas)){
     filtrado = filtrado[filtrado$safra %in% input$safraInputDoencas, ]
@@ -219,8 +214,7 @@ service.getDiagostico = function(tabela, inputUsuario) {
                              `UF` = tab_resultados$UF,
                              `Irrigação` = ifelse(inputUsuario$irrigacaoInputDoencas == 't', 'Sim', 'Nao'),
                              `Fungicida` = ifelse(inputUsuario$fungicidaInputDoencas == 't', 'Sim', 'Nao'),
-                             `Tipo de grão` = capture.output(cat(inputUsuario$tipodegraoInputDoencas, sep = ',')),
-                             `Época` = capture.output(cat(inputUsuario$epocaInputDoencas, sep = ',')),
+                             `Tipo de grão` = capture.output(cat(inputUsuario$tipodegraoInputDoencas, sep = ','))
   )
   
   return(indicadores_bind)

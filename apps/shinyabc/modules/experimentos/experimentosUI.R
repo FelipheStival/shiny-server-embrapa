@@ -296,13 +296,6 @@ doencas.sidebar = function() {
         choices = "Todos",
         multiple = T,
         selectize = T
-      ),
-      selectInput(
-        inputId = "epocaInputDoencas",
-        label = "Selecione a epoca: ",
-        choices = "Todos",
-        multiple = T,
-        selectize = T
       )
     )
   )

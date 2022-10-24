@@ -141,7 +141,7 @@ experimentoServer = function(input, output, session) {
     
     return(diagnostico)
     
-  },options = list(lengthMenu = c(5,10, 25), pageLength = 5))
+  },options = list(lengthMenu = c(5,10, 25), pageLength = 5, scrollX = TRUE))
   #==============================================#
   
   #==============================================#
