@@ -93,8 +93,6 @@ experimentos.provider.dadosFiltrados = function(dados, input) {
   return(filtrado)
 }
 
-
-
 TE1 = function(df, y, rep, gen, trials, accuracy) {
   tryCatch(
     expr = {
@@ -415,7 +413,79 @@ Comp.var = function(model,r,s,y) {
 }
 #==============================================#
 
+mean_fun = function(mdl, tabela, spec){
+  
+  require(dplyr)
+  # Get p-values
+  p_vals = as.data.frame(summary(mdl)[4])[4]
+  names(p_vals) = c("pval")
+  # Exclude '(INTERCEPT)' rowname
+  p_vals = p_vals[-1, ,FALSE]
+  # Genotypes (or specs) greater than 5%
+  gen_intcpt = p_vals %>% filter(pval > 0.05) %>% rownames()
+  gen_intcpt = str_remove(gen_intcpt, spec)
+  #print(gen_intcpt)
+  # Separate intercept value
+  intcpt = coef(mdl)[1]
+  # All genotypes
+  gens = p_vals %>% rownames()
+  gens = str_remove(gens, spec)
+  
+  tabela_mean = data.frame(genotipo = c(), emmean = c())
+  i = 2
+  for(gid in gens){
+    if(gid %in% gen_intcpt){
+      tabela_mean = rbind(tabela_mean, data.frame(genotipo = gid, emmean = intcpt))
+    }
+    else{
+      tabela_mean = rbind(tabela_mean, data.frame(genotipo = gid, emmean = intcpt + coef(mdl)[i]))
+    }
+    
+    i = i + 1
+  }
+  
+  rownames(tabela_mean) = NULL
+  tabela_mean
+}
 
+
+mean_fun = function(mdl, tabela, spec){
+  
+  # Get p-values
+  p_vals = as.data.frame(summary(mdl)[4])[4]
+  names(p_vals) = c("pval")
+  # Exclude '(INTERCEPT)' rowname
+  p_vals = p_vals[-1, ,FALSE]
+  # Genotypes (or specs) greater than 5%
+  gen_intcpt = p_vals %>% filter(pval > 0.05) %>% rownames()
+  gen_intcpt = str_remove(gen_intcpt, spec)
+  #print(gen_intcpt)
+  # Separate intercept value
+  intcpt = coef(mdl)[1]
+  # All genotypes
+  gens = p_vals %>% rownames()
+  gens = str_remove(gens, spec)
+  
+  tabela_mean = data.frame(genotipo = c(), emmean = c())
+  i = 2
+  for(gid in gens){
+    if(gid %in% gen_intcpt){
+      tabela_mean = rbind(tabela_mean, data.frame(genotipo = gid, emmean = intcpt))
+    }
+    else{
+      tabela_mean = rbind(tabela_mean, data.frame(genotipo = gid, emmean = intcpt + coef(mdl)[i]))
+    }
+    
+    i = i + 1
+  }
+  
+  rownames(tabela_mean) = NULL
+  tabela_mean
+}
+
+#==============================================
+# Prepara o banco de dados para ser plotado 
+#==============================================
 model.GGE = function(tabela) {
   Y = model.Values(tabela)
   gge.model = NULL
@@ -429,16 +499,15 @@ model.GGE = function(tabela) {
   }
   return(gge.model)
 }
-
 #==============================================#
 model.Values = function(tabela) {
   tryCatch(
     expr = {
       # modelo de efeito fixo
       fixed = dlply(tabela, .(id_ensaio), function(x)
-        lm(produtividade ~ repeticao + genotipo, x))
+        lm(produtividade ~ genotipo, x))
       means = llply(fixed, function(x)
-        emmeans(x, specs = "genotipo"))
+        mean_fun(x, tabela, spec = "genotipo"))
       
       y = NULL
       for (j in 1:length(means)) {
@@ -501,68 +570,68 @@ model.dadosRelatorio = function(dadosRelatorio){
 # Calcula os preditos com base no banco de dados, ajustando o modelo adequado
 # Note que df nesse caso é o banco de dados filtrado acima
 
-calcula_predict <- function(df, trait, rep, site, gid, year, mediaFilterSelect = "TODOS"){
+calcula_predict = function(df, trait, rep, site, gid, year, mediaFilterSelect = "TODOS"){
   
-  dataset <- df[,c(trait, rep, site, gid, year)]
+  dataset = df[,c(trait, rep, site, gid, year)]
   dataset$rep = as.factor(dataset$rep)
-  names(dataset) <- c("trait","rep", "site", "gid", "year")
-  yearBackup <- unique(dataset$year)
-  siteBackup <- unique(dataset$site)
+  names(dataset) = c("trait","rep", "site", "gid", "year")
+  yearBackup = unique(dataset$year)
+  siteBackup = unique(dataset$site)
   
-  r <- length(unique(dataset$rep))
-  y <- length(unique(dataset$year))
-  s <- length(unique(dataset$site))
+  r = length(unique(dataset$rep))
+  y = length(unique(dataset$year))
+  s = length(unique(dataset$site))
   
   if(length(unique(dataset$site)) > 1){
     if(length(unique(dataset$year)) > 1){
-      mix.model.an <- lmer(trait~rep:site:year+(1|gid)+(1|gid:site) + (1|gid:year) + (1|gid:site:year),data= dataset)
+      mix.model.an = lmer(trait~rep:site:year+(1|gid)+(1|gid:site) + (1|gid:year) + (1|gid:site:year),data= dataset)
     } else {
-      mix.model.an <- lmer(trait ~ rep:site + (1|gid) + (1|gid:site), data = dataset)
+      mix.model.an = lmer(trait ~ rep:site + (1|gid) + (1|gid:site), data = dataset)
     }
     
   } else {
     if(length(unique(dataset$year)) > 1){
-      mix.model.an <- lmer(trait ~ rep:year + (1|gid) + (1|gid:year), data= dataset)
+      mix.model.an = lmer(trait ~ rep:year + (1|gid) + (1|gid:year), data= dataset)
     } else {
-      mix.model.an <- lmer(trait~rep +(1|gid),data= dataset)
+      mix.model.an = lmer(trait~rep +(1|gid),data= dataset)
     }
   }
   
-  fn <- fixef(mix.model.an)[1]
-  resposta <- dataset
-  resposta$predicts <- predict(mix.model.an, newdata = dataset, allow.new.levels = TRUE)
-  resposta <- resposta[,c('gid','site','year','predicts')]
-  mediaPredict <- mean(resposta$predicts)
+  fn = fixef(mix.model.an)[1]
+  resposta = dataset
+  resposta$predicts = predict(mix.model.an, newdata = dataset, allow.new.levels = TRUE)
+  resposta = resposta[,c('gid','site','year','predicts')]
+  mediaPredict = mean(resposta$predicts)
   
   
-  resp_list <- list()
-  resp_list$pred <- resposta
-  resp_list$Mu <- fn
-  resp_list$mdl <- mix.model.an
+  resp_list = list()
+  resp_list$pred = resposta
+  resp_list$Mu = fn
+  resp_list$mdl = mix.model.an
   
   return(resp_list)
 }
 #==============================================#
 
 #==============================================#
-plot_predict <- function(data_plot){
+plot_predict = function(data_plot){
   
   # Inicializa lista de gráficos
-  graficos <- list()
+  graficos = list()
   
   # Barplot
   # para conseguir fazer esse gráfico preciso modificar um pouco os dados
   
-  modified_data <- data_plot %>% 
+  modified_data = data_plot %>% 
     # Agrupar por genotipo e calcular media e mediana
     group_by(gid) %>% 
     summarise(mean_pred = mean(predicts), median = median(predicts))
   
   # Muda o df para formato long
-  long <- melt(modified_data,id.vars="gid")
+  long = melt(modified_data,id.vars="gid")
   
   
-  graficos$barplot <- ggplot(data = long, aes(x=reorder(gid,value), y=value, fill=variable)) + 
+  graficos$barplot = ggplot(data = long, aes(x=reorder(gid,value), y=value, fill=variable)) + 
     geom_bar(stat = "identity",
              position="dodge") +
     xlab("Genótipos") +
@@ -574,11 +643,11 @@ plot_predict <- function(data_plot){
     theme_light()
   
   # Boxplot locais
-  locais <- unique(data_plot$site)
-  i <- 2
+  locais = unique(data_plot$site)
+  i = 2
   for (loc in locais) {
     
-    graficos[[i]] <- ggplot(data = data_plot %>% filter(site == loc), aes(x=reorder(gid,predicts), y=predicts)) + 
+    graficos[[i]] = ggplot(data = data_plot %>% filter(site == loc), aes(x=reorder(gid,predicts), y=predicts)) + 
       geom_boxplot( fill = "lightyellow") + 
       stat_boxplot(geom ='errorbar') + 
       xlab("Genótipos") +
@@ -587,16 +656,16 @@ plot_predict <- function(data_plot){
       theme_light() +
       facet_grid(~site)
     
-    names(graficos)[i] <- paste0("graficoboxplot",loc)
+    names(graficos)[i] = paste0("graficoboxplot",loc)
     
-    i <- i + 1
+    i = i + 1
   }
   
-  locais <- unique(data_plot$site)
-  i <- 2
+  locais = unique(data_plot$site)
+  i = 2
   for (loc in locais) {
     
-    graficos[[i]] <- ggplot(data = data_plot %>% filter(site == loc), aes(x=reorder(gid,predicts), y=predicts)) + 
+    graficos[[i]] = ggplot(data = data_plot %>% filter(site == loc), aes(x=reorder(gid,predicts), y=predicts)) + 
       geom_boxplot( fill = "lightyellow") + 
       stat_boxplot(geom ='errorbar') + 
       xlab("Genótipos") +
@@ -605,13 +674,13 @@ plot_predict <- function(data_plot){
       theme_light() +
       facet_grid(~site)
     
-    names(graficos)[i] <- paste0("graficoboxplot",loc)
+    names(graficos)[i] = paste0("graficoboxplot",loc)
     
-    i <- i + 1
+    i = i + 1
   }
   
   # Heatmap (Locais e genótipos)
-  graficos$heatmap <- data_plot %>% 
+  graficos$heatmap = data_plot %>% 
     ggplot(aes(x = site, y = gid, fill = predicts)) +
     geom_tile(height = 1.1, color = 'black') +
     scale_fill_gradientn(colors = c("red","green")) +
@@ -627,73 +696,73 @@ plot_predict <- function(data_plot){
     )
   
   # Clusters
-  cluster_data <- data_plot %>% 
+  cluster_data = data_plot %>% 
     # Agrupar por genotipo e calcular media
     group_by(gid) %>% 
     summarise(mean_pred = mean(predicts))
   # Selecionar o numero de clusters
-  k_val <- 5
+  k_val = 5
   # Salva os clusters referentes a cada observacao
   set.seed(123)
-  clusters_obs <- kmeans(cluster_data[2], k_val, nstart = 50)$cluster
+  clusters_obs = kmeans(cluster_data[2], k_val, nstart = 50)$cluster
   # Adiciona os clusters no df
-  cluster_data <- data.frame(cluster_data, grupos = (clusters_obs))
+  cluster_data = data.frame(cluster_data, grupos = (clusters_obs))
   # Coloca o df em ordem crescente
-  cluster_data <- cluster_data[order(cluster_data$mean_pred),]
-  rownames(cluster_data) <- NULL
+  cluster_data = cluster_data[order(cluster_data$mean_pred),]
+  rownames(cluster_data) = NULL
   
   # Fixa um df para colocar o numero de clusters em ordem crescente
-  cluster_data_pin <- cluster_data
-  s_want <- 1:length(unique(clusters_obs))
-  s_now <- unique(cluster_data$cluster)
+  cluster_data_pin = cluster_data
+  s_want = 1:length(unique(clusters_obs))
+  s_now = unique(cluster_data$cluster)
   # Finalmente coloca em ordem crescente
   for(i in 1:length(unique(clusters_obs))){
     
-    cluster_data_pin[cluster_data == s_now[i]] <- s_want[i]
+    cluster_data_pin[cluster_data == s_now[i]] = s_want[i]
     
   }
   
   # Precisamos obter tambem os intervalos de cada cluster
   # Simulando de 1 em 1
   set.seed(123)
-  clusters_obs_sim <- kmeans(min(cluster_data$mean_pred):max(cluster_data$mean_pred), k_val, nstart = 50)$cluster
+  clusters_obs_sim = kmeans(min(cluster_data$mean_pred):max(cluster_data$mean_pred), k_val, nstart = 50)$cluster
   
-  sim_data <- data.frame(predicts = min(cluster_data$mean_pred):max(cluster_data$mean_pred), grupos = clusters_obs_sim) %>% group_by(grupos)
-  sim_data <- data.frame(sim_data)
+  sim_data = data.frame(predicts = min(cluster_data$mean_pred):max(cluster_data$mean_pred), grupos = clusters_obs_sim) %>% group_by(grupos)
+  sim_data = data.frame(sim_data)
   
-  sim_data <- sim_data[order(sim_data$predicts),]
-  sim_data_pin <- sim_data
+  sim_data = sim_data[order(sim_data$predicts),]
+  sim_data_pin = sim_data
   
-  #seq_want <- 1:length(unique(res.km.real))
-  s_now_sim <- unique(sim_data_pin$grupos)
+  #seq_want = 1:length(unique(res.km.real))
+  s_now_sim = unique(sim_data_pin$grupos)
   
   for(i in 1:length(unique(clusters_obs_sim))){
     
-    sim_data_pin[sim_data == s_now_sim[i]] <- s_want[i]
+    sim_data_pin[sim_data == s_now_sim[i]] = s_want[i]
     
   }
   
   # Definir intervalos entre os clusters
-  intervals <- matrix(nrow = length(unique(sim_data_pin$grupos)),ncol = 2)
+  intervals = matrix(nrow = length(unique(sim_data_pin$grupos)),ncol = 2)
   for(i in 1:length(unique(sim_data_pin$grupos))){
     
-    intervals[i,1] <- round(min(sim_data_pin %>% filter(grupos == i) %>% summarise(predicts)),0)-1
-    intervals[i,2] <- round(max(sim_data_pin %>% filter(grupos == i) %>% summarise(predicts)),0)
+    intervals[i,1] = round(min(sim_data_pin %>% filter(grupos == i) %>% summarise(predicts)),0)-1
+    intervals[i,2] = round(max(sim_data_pin %>% filter(grupos == i) %>% summarise(predicts)),0)
     
   }
   
   # Intervalos em string para o grafico
-  fill_label <- c()
-  fill_label[1] <- paste0("[",intervals[1,1],",",intervals[1,2],"]")
+  fill_label = c()
+  fill_label[1] = paste0("[",intervals[1,1],",",intervals[1,2],"]")
   
   for(i in 2:length(unique(sim_data_pin$grupos))){
     
-    fill_label[i] <- paste0("(",intervals[i,1],",",intervals[i,2],"]")
+    fill_label[i] = paste0("(",intervals[i,1],",",intervals[i,2],"]")
     
   }
   
   # Enfim o grafico do cluster
-  graficos$cluster <- ggplot(cluster_data_pin, aes(x=grupos, y=reorder(gid,grupos), fill = as.factor(grupos))) +
+  graficos$cluster = ggplot(cluster_data_pin, aes(x=grupos, y=reorder(gid,grupos), fill = as.factor(grupos))) +
     geom_bar(stat='identity') +
     theme(axis.text.x = element_blank(),
           axis.ticks.x = element_blank()) +
@@ -704,5 +773,80 @@ plot_predict <- function(data_plot){
     scale_fill_discrete(labels = fill_label)
   
   return(graficos)
+  
 }
 #==============================================#
+
+#==============================================#
+# Função para clusterizar o banco de dados e ordená-los
+#==============================================#
+ordena_cluster = function(tabela, coluna_cluster){
+  # Cluster
+  km = kmeans(tabela[coluna_cluster], 3, nstart = 75)
+  # Adicionar os grupos em uma coluna do banco de dados
+  cluster_data = data.frame(tabela, classificacao = km$cluster)
+  # Sequência para ordenar
+  s_want = c("Low","Medium","High")
+  # Sequência existente
+  s_now = unique(cluster_data$classificacao)
+  # Finalmente coloca em ordem crescente
+  for(i in 1:length(unique(cluster_data$classificacao))){
+    
+    cluster_data[cluster_data == s_now[i]] = s_want[i]
+    
+  }
+  
+  # classificacao como fator
+  cluster_data$classificacao = as.factor(cluster_data$classificacao)
+  
+  return(cluster_data)
+}
+
+#==============================================#
+# Função para contar as classificações
+#==============================================#
+count_class = function(tabela_cluster){
+  
+  genotipos = unique(tabela_cluster$genotipo)
+  locais = unique(tabela_cluster$local)
+  
+  contagens = data.frame(genotipo = c(), local = c(), Low = c(), Medium = c(), High = c())
+  
+  for(gid in genotipos){
+    
+    for(loc in locais){
+      contagens = rbind(contagens,
+                         data.frame(
+                           genotipo = gid,
+                           local = loc,
+                           Low = length(subset(tabela_cluster, genotipo == gid & classificacao == "Low" & local == loc)$classificacao),
+                           Medium = length(subset(tabela_cluster, genotipo == gid & classificacao == "Medium" & local == loc)$classificacao),
+                           High = length(subset(tabela_cluster, genotipo == gid & classificacao == "High" & local == loc)$classificacao)))
+    }
+    
+  }
+  return(contagens)
+}
+
+#==============================================#
+# PGP (Potencial Gen. de Prod.)
+#==============================================#
+gen_prod_pot <- function(dados){
+  
+  tab_cluster <- ordena_cluster(dados, "produtividade")
+  tab_classe <- count_class(tab_cluster)
+  
+  tab_classe$totalcont <- rowSums(tab_classe[3:5])
+  tab_classe$a <- tab_classe$Low/tab_classe$totalcont
+  tab_classe$b <- tab_classe$Medium/tab_classe$totalcont
+  tab_classe$c <- tab_classe$High/tab_classe$totalcont
+  
+  A <- 0
+  B <- 5
+  C <- 10
+  
+  tab_classe$notas <- A*tab_classe$a + B*tab_classe$b + C*tab_classe$c
+  tab_classe <- na.omit(tab_classe)
+  
+  return(tab_classe)
+}

@@ -320,7 +320,7 @@ grafico.GraficoAnomalia = function(cidade,
       sign = ifelse(anom > 0, "pos", "neg")
     )
   
-  Meses = c('set', 'out', 'nov', 'dez', 'jan', 'fev', 'mar', 'mai')
+  Meses = c('Set', 'Out', 'Nov', 'Dez', 'Jan', 'Fev', 'Mar', 'Mai')
   
   dados = dados %>%
     mutate(filtro = format(date, '%m')) %>%
@@ -330,17 +330,17 @@ grafico.GraficoAnomalia = function(cidade,
   ano = str_split(ano, "-")[[1]]
   Filter_ano_um = dados %>%
     filter(yr == ano[1],
-           mo == "set" |
-             mo == "out" |
-             mo == "nov" |
-             mo == "dez")
+           mo == "Set" |
+             mo == "Out" |
+             mo == "Nov" |
+             mo == "Dez")
   
   Filter_ano_dois = dados %>%
     filter(yr == ano[2],
-           mo == "jan" |
-             mo == "fev" |
-             mo == "mar" |
-             mo == "mai")
+           mo == "Jan" |
+             mo == "Fev" |
+             mo == "Mar" |
+             mo == "Mai")
   
   Filter_rbind = rbind(Filter_ano_um, Filter_ano_dois)
   

@@ -267,7 +267,21 @@ grafico.analiseCluster = function(data_plot, mediaSelect = 'TODOS'){
 # Aba "Analise GGE"
 # Grafico "Quem vence e aonde"
 grafico.analiseGGE_QuemVenceEAonde = function(gge.model) {
-  WhichWon(gge.model, largeSize = 4) + theme_bw()
+  plot = WhichWon(gge.model, largeSize = 3, axis_expand = 1.75) + theme_bw()
+  label_plot <- plot[["data"]][["label"]]
+  
+  plot$layers[[7]] <- NULL
+  plot$layers[[6]] <- NULL
+  plot$layers[[5]] <- NULL
+  
+  plot <- plot + geom_text_repel(label = label_plot, 
+                          color = ifelse(
+                            label_plot %in% plot[["plot_env"]][["labelgen"]], "forestgreen", "blue"
+                          ),
+                          max.overlaps  = 14,
+                          max.iter = 10000)
+  
+  return(plot)
 }
 #==============================================#
 
@@ -275,14 +289,28 @@ grafico.analiseGGE_QuemVenceEAonde = function(gge.model) {
 # Aba "Analise GGE"
 # Grafico "Ordem de Ambiente"
 grafico.analiseGGE_OrdemDeAmbiente = function(gge.model) {
-  RankEnv(gge.model, largeSize = 4) + theme_bw()
+  plot = RankEnv(gge.model, largeSize = 4, axis_expand = 1.75) + theme_bw()
+  return(plot)
 }
 
 #==============================================#
 # Aba "Analise GGE"
 # Grafico "Ordem de genotipo"
 grafico.analiseGGE_OrdemDeGenotipo = function(gge.model) {
-  RankGen(gge.model, largeSize = 4) + theme_bw()
+  plot = RankGen(gge.model,largeSize = 4, axis_expand = 1.6) + theme_bw()
+  
+  label_plot <- plot[["data"]][["label"]]
+  plot$layers[[10]] <- NULL
+  plot$layers[[9]] <- NULL
+  plot$layers[[8]] <- NULL
+  
+  plot = plot + geom_text_repel(label = label_plot, 
+                             color = ifelse(
+                               label_plot %in% plot[["plot_env"]][["labelgen"]], "forestgreen", "blue"
+                             ),
+                             max.overlaps  = 14,
+                             max.iter = 10000)
+  return(plot)
 }
 #==============================================#
 
@@ -290,7 +318,7 @@ grafico.analiseGGE_OrdemDeGenotipo = function(gge.model) {
 # Aba "Analise GGE"
 # Grafico "Relacao entre ambientes"
 grafico.analiseGGE_RelacaoEntreAmbientes = function(gge.model) {
-  EnvRelationship(gge.model, largeSize = 4) + theme_bw()
+  EnvRelationship(gge.model, largeSize = 4, axis_expand = 1.75) + theme_bw()
 }
 #==============================================#
 
@@ -298,7 +326,21 @@ grafico.analiseGGE_RelacaoEntreAmbientes = function(gge.model) {
 # Aba "Analise GGE"
 # Grafico "Estabilidade / Media"
 grafico.analiseGGE_EstabilidadeMedia = function(gge.model) {
-  MeanStability(gge.model, largeSize = 4) + theme_bw()
+  plot = MeanStability(gge.model, largeSize = 4, axis_expand = 1.75) + theme_bw()
+  
+  label_plot <- plot[["data"]][["label"]]
+  plot$layers[[8]] <- NULL
+  plot$layers[[7]] <- NULL
+  plot$layers[[6]] <- NULL
+  
+  plot = plot + geom_text_repel(label = label_plot, 
+                             color = ifelse(
+                               label_plot %in% plot[["plot_env"]][["labelgen"]], "forestgreen", "blue"
+                             ),
+                             max.overlaps  = 14,
+                             max.iter = 10000)
+  
+  return(plot)
 }
 #==============================================#
 
@@ -307,5 +349,31 @@ grafico.analiseGGE_EstabilidadeMedia = function(gge.model) {
 # Grafico "Denograma"
 grafico.analiseGGE_Denograma = function(deno) {
   plot(as.phylo(deno), cex = 0.7, label.offset = 0.7, width = 10)
+}
+#==============================================#
+
+#==============================================#
+# Aba "Potencial genótipo produtivo"
+# Grafico "Potencial Produtivo"
+grafico.pontecialProdutivo = function(dados, localInput) {
+  
+  plot = ggplot(dados %>% filter(local == localInput), aes(x = genotipo, y = notas, fill = notas, label = round(notas,1))) +
+    geom_col(width = 0.85, colour = "black") + 
+    coord_polar() +
+    scale_fill_gradientn(colors = c("red","yellow","green")) +
+    theme_minimal() +
+    geom_text(position=position_stack(vjust=0.8), size = 2.8) +
+    theme(axis.title=element_blank(),
+          axis.text.y=element_blank(),
+          axis.text.x=element_text(face= "bold", size = 11),
+          axis.ticks=element_blank(),
+          panel.grid.major = element_line(size = 0.5, linetype = 'dashed',
+                                          colour = "black"), 
+          panel.grid.minor = element_line(size = 0.25, linetype = 'dashed',
+                                          colour = "black")) +
+    labs(fill = "PGP")
+  
+  return(plot)
+  
 }
 #==============================================#

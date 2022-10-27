@@ -215,6 +215,35 @@ tabItem.diagnostico = function() {
 }
 
 #==============================================
+# Aba "Potencial genótipo produtivo"
+#==============================================
+tabItem.potencialGenotipo = function(){
+  tabItem(
+    tabName = "analise-genotipo-produtivo",
+    column(
+      width = 3,
+      box(
+        width = 12,
+        status = "warning",
+        selectInput(
+          "select_analiseEstatistica_local_potencial_genotipo",
+          "selecione o local:",
+          c("AL_TRA"),
+          selected = "AL_TRA"
+        )
+      )
+    ),
+    column(
+      width = 9,
+      box(
+        width = 12,
+        plotOutput('potencialGenotipoPlot', width = '100%', height = "80vh") %>% withSpinner(color = "#0dc5c1")
+      )
+    )
+  )
+}
+
+#==============================================
 # Aba "Diagnostico"
 #==============================================
 doencas.sidebar = function() {
@@ -246,6 +275,11 @@ doencas.sidebar = function() {
         "Analise GGE",
         tabName = "analise-gge",
         icon = icon("line-chart")
+      ),
+      menuSubItem(
+        "Potencial genótipo produtivo",
+        tabName = "analise-genotipo-produtivo",
+        icon = icon("line-chart")
       )
     ),
     menuItem(
@@ -260,7 +294,7 @@ doencas.sidebar = function() {
         inputId = "safraInputDoencas",
         label = "Selecione a safra:",
         choices = "12/13",
-        options = list(maxItems = 2)
+        options = list(maxItems = 1)
       ),
       selectInput(
         inputId = "estadoInputDoencas",
@@ -334,7 +368,8 @@ experimentosUI = div(id = "clima-container",
                       tabItem.analiseEstatistica(),
                       tabItem.graficoLinhas(),
                       tabItem.analiseGGE(),
-                      tabItem.graficoHeatMap()
+                      tabItem.graficoHeatMap(),
+                      tabItem.potencialGenotipo()
                     )
                   )
                   #========================================================
